@@ -1,90 +1,88 @@
- 
+
 "use client"
-import {Facebook, Instagram, Linkedin, Mail, MailIcon, MapPin, PhoneCall, Twitter, Youtube} from "lucide-react"
+import { Facebook, Instagram, Linkedin, Mail, MailIcon, MapPin, PhoneCall, Twitter, Youtube } from "lucide-react"
 
 
 export default function Footer() {
     return (
         <footer className="mt-[100px]">
-            <div className="max-w-[1240px] m-auto bg-[#FBFBFB]">
-                <div className="flex justify-between items-start pb-5 pt-7 px-4">
-                    <div className="w-[23%] px-5 border-r-2 border-r-[#46A3581A]">
-                        <div><img src="/images/f11.svg" alt="img" /></div>
+            <div className="max-w-[1240px] m-auto bg-[#f5f5f5]">
+                <div className="flex max-sm:flex-col">
+                    <div className="m-[23px] pr-[23px] border-r border-[#46A358] max-sm:border-r-0 max-sm:border-b-2 pb-[23px]">
+                        <div><img src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffooter_flower_1.svg?alt=media&token=407c8917-880e-4c1d-a8a8-b377ff7cc61c" alt="img" /></div>
                         <div>
-                            <h3 className="font-bold text-lg mt-4 mb-1">Garden Care</h3>
-                            <p className="text-sm text-gray-400">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
+                            <h3 className="font-bold text-base mt-[17px] mb-[9px]">Garden Care</h3>
+                            <p className="font-light text-sm">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
                         </div>
                     </div>
-                    <div className="w-[23%] px-5 border-r-2 border-r-[#46A3581A]">
-                        <div><img src="/images/f22.svg" alt="img" /></div>
+                    <div className="m-[23px] pr-[23px] border-r border-[#46A358] max-sm:border-r-0 max-sm:border-b-2 pb-[23px]]">
+                        <div><img src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffooter_flower_2.svg?alt=media&token=cc49dd7d-b040-4311-a0a3-310c0aba964a" alt="img" /></div>
                         <div>
-                            <h3 className="font-bold text-lg mt-4 mb-1">Plant Renovation</h3>
-                            <p className="text-sm text-gray-400">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
+                            <h3 className="font-bold text-base mt-[17px] mb-[9px]">Plant Renovation</h3>
+                            <p className="font-light text-sm">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
                         </div>
                     </div>
-                    <div className="w-[23%] px-5 ">
-                        <div><img src="/images/f33.svg" alt="img" /></div>
+                    <div className="m-[23px]">
+                        <div><img src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffooter_flower_1.svg?alt=media&token=407c8917-880e-4c1d-a8a8-b377ff7cc61c" alt="img" /></div>
                         <div>
-                            <h3 className="font-bold text-lg mt-4 mb-1">Watering Graden</h3>
-                            <p className="text-sm text-gray-400">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
+                            <h3 className="font-bold text-base mt-[17px] mb-[9px]">Watering Graden</h3>
+                            <p className="font-light text-sm">We are an online plant shop offering a wide range of cheap and trendy plants.</p>
                         </div>
                     </div>
-                    <div className="w-[31%]">
-                        <h3 className="font-bold text-lg">Would you like to join newsletters?</h3>
-                        <div className="flex items-center mt-3 mb-7">
-                            <input type="text" className="bg-white py-2 px-4 w-full rounded-l shadow" placeholder="enter your email address..." />
-                            <button className="py-2 px-5 rounded-r text-white font-semibold bg-[#46A358]">Join</button>
+                    <div className="p-[23px]">
+                        <h3 className="font-bold text-base mt-[17px] mb-[9px]">Would you like to join newsletters?</h3>
+                        <div className="flex w-full h-[40px] mb-[17px]">
+                            <input type="text" className="h-full w-4/5 rounded-s-xl pl-[11px] placeholder:font-light" placeholder="enter your email address..." />
+                            <button className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white h-full w-1/5 rounded-none rounded-e-xl">Join</button>
                         </div>
-                            <p className="text-sm text-gray-400">We usually post offers and challenges in newsletter. We’re your online houseplant destination. We offer a wide range of houseplants and accessories shipped directly from our (green)house to yours! </p>
+                        <p className="font-light leading-6 text-sm">We usually post offers and challenges in newsletter. We’re your online houseplant destination. We offer a wide range of houseplants and accessories shipped directly from our (green)house to yours! </p>
                     </div>
                 </div>
                 <div className="bg-[#46A3581A] flex justify-between items-center p-5 pl-8">
                     <div><img src="/images/logo.svg" alt="logog" /></div>
-                    <div className="max-w-[250px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MapPin size={25} className="text-[#46A358]"/> 70 West Buckingham Ave. Farmingdale, NY 11735</div>
-                    <div className="max-w-[200px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MailIcon size={20} className="text-[#46A358]"/> contact@greenshop.com</div>
-                    <div className="max-w-[400px] w-full flex gap-2 items-center text-sm text-[#3D3D3D]"><PhoneCall size={20} className="text-[#46A358]"/> +88 01911 717 490</div>
+                    <div className="max-w-[250px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MapPin size={25} className="text-[#46A358]" /> 70 West Buckingham Ave. Farmingdale, NY 11735</div>
+                    <div className="max-w-[200px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MailIcon size={20} className="text-[#46A358]" /> contact@greenshop.com</div>
+                    <div className="max-w-[400px] w-full flex gap-2 items-center text-sm text-[#3D3D3D]"><PhoneCall size={20} className="text-[#46A358]" /> +88 01911 717 490</div>
                 </div>
-                <div className="max-w-7xl mt-[10px] mx-auto px-4 grid grid-cols-4 gap-6 bg-[#FBFBFB] block">
-                    <div>
-                        <h4 className="font-bold mb-2">My Account</h4>
-                        <ul className="space-y-1 text-sm text-gray-700">
-                            <li><a href="/profile" className="hover:text-green-600">My Account</a></li>
-                            <li><a href="#" className="hover:text-green-600">Address</a></li>
-                            <li><a href="#" className="hover:text-green-600">Wishlist</a></li>
-                        </ul>
+                <div className="flex justify-between p-[23px] max-sm:flex-col max-sm:gap-4">
+                    <div className="flex flex-1 flex-col gap-2.5">
+                        <h3 className="font-bold text-[18px]">My Account</h3>
+                            <a href="/profile/account" className="hover:text-[green] text-sm font-inter font-[400] text-[15px]">My Account</a>
+                            <a href="/profile/address" className="hover:text-[green] font-inter font-[400] text-[15px]">Address</a>
+                            <a href="/profile/wishlist" className="hover:text-[green] font-inter font-[400] text-[15px]">Wishlist</a>
                     </div>
-                    <div>
-                        <h4 className="font-bold mb-2">Categories</h4>
-                        <ul className="space-y-1 text-sm text-gray-700">
-                            <li><a href="#" className="hover:text-green-600">House Plants</a></li>
-                            <li><a href="#" className="hover:text-green-600">Potter Plants</a></li>
-                            <li><a href="#" className="hover:text-green-600">Seeds</a></li>
-                            <li><a href="#" className="hover:text-green-600">Small Plants</a></li>
-                            <li><a href="#" className="hover:text-green-600">Accessories</a></li>
-                        </ul>
+                    <div className="flex-1 flex flex-col gap-2.5">
+                        <h3 className="font-bold text-[18px]">Categories</h3>
+                        <a href="/?category=house-plants&sort=default-sorting&type=all-plants&range_min=0&range_max=2000" className="hover:text-[green] font-inter font-[400] text-[15px]">House Plants</a>
+                        <a href="/?category=potter-plants&sort=default-sorting&type=all-plants&range_min=0&range_max=2000" className="hover:text-[green] font-inter font-[400] text-[15px]">Potter Plants</a>
+                        <a href="/?category=seeds&sort=default-sorting&type=all-plants&range_min=0&range_max=2000" className="hover:text-[green] font-inter font-[400] text-[15px]">Seeds</a>
+                        <a href="/?category=small-plants&sort=default-sorting&type=all-plants&range_min=0&range_max=2000" className="hover:text-[green] font-inter font-[400] text-[15px]">Small Plants</a>
+                        <a href="/?category=accessories&sort=default-sorting&type=all-plants&range_min=0&range_max=2000" className="hover:text-[green] font-inter font-[400] text-[15px]">Accessories</a>
                     </div>
-                    <div>
-                        <h4 className="font-bold mb-2">Social Media</h4>
-                        <div className="flex space-x-2">
-                            <a href="#" className=" text-green-500 rounded"><Facebook /></a>
-                            <a href="#" className=" text-green-500 rounded"><Instagram /></a>
-                            <a href="#" className=" text-green-500 rounded"><Twitter /></a>
-                            <a href="#" className=" text-green-500 rounded"><Linkedin /></a>
-                            <a href="#" className=" text-green-500 rounded"><Youtube /></a>
+                    <div className="flex-1 ">
+                        <div>
+                            <h3 className="font-bold text-[16px]">Social Media</h3>
+                            <div className="flex space-x-4 mt-[18px]">
+                                <a href="https://www.facebook.com/"><Facebook   className="border text-[#46A358] border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer"/></a>
+                                <a href="https://www.instagram.com/"><Instagram className="border text-[#46A358] border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer" /></a>
+                                <a href="https://www.twitter.com"><Twitter className="border text-[#46A358] border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer" /></a>
+                                <a href="https://www.linkedin.com/"><Linkedin className="border text-[#46A358] border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer" /></a>
+                                <a href="https://mail.ru/"><Mail className="border text-[#46A358] border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer" /></a>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <h4 className="font-bold mb-2">We accept</h4>
-                        <div className="flex space-x-2">
-                            <span className="bg-gray-300 p-2 rounded">PayPal</span>
-                            <span className="bg-gray-300 p-2 rounded">Mastercard</span>
-                            <span className="bg-gray-300 p-2 rounded">Visa</span>
-                            <span className="bg-gray-300 p-2 rounded">Amex</span>
+                        <div className="mt-[22px]">
+                            <h4 className="font-bold text-[16px]">We accept</h4>
+                            <div className="flex gap-[10px] mt-[18px]">
+                                <img className="w-[30px] h-[30px]" src="/images/paypal.svg" alt="img" />
+                                <img className="w-[30px] h-[30px]" src="/images/mastercard.svg" alt="img" />
+                                <img className="w-[30px] h-[30px]" src="/images/visa.svg" alt="img" />
+                                <img className="w-[30px] h-[30px]" src="/images/amex.svg" alt="img" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <p className="text-center text-sm text-gray-600 mt-6">&copy; 2021 GreenShop. All Rights Reserved.</p>
             </div>
+                <p className="text-center p-[10px] font-normal text-sm">&copy; 2023 GreenShop. All Rights Reserved.</p>
         </footer>
     )
 }
