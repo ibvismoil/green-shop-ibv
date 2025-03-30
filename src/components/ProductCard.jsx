@@ -1,63 +1,14 @@
-import axios from "axios";
 import { Heart, Search, ShoppingCart } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 const api = import.meta.env.VITE_API
 const accessToken = JSON.parse(localStorage.getItem("user"))?.user?._id || '64bebc1e2c6d3f056a8c85b7';
 
-const LikeFlower = async (route_path, flower_id, name, setIsLiked) => {
-    try {
-        const response = await axios.post(`${api}/user/create-wishlist?access_token=${accessToken}`, {
-            route_path,
-            flower_id
-        });
-
-        if (response.data.message === 'success') {
-            toast.success(`${name} added to your wishlist! ❤️`);
-            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-            const updatedWishlist = [...wishlist, { route_path, flower_id }];
-            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-            setIsLiked(true);
-        } else {
-            toast.error(`Failed to add ${name} to wishlist. ❌`);
-        }
-    } catch (error) {
-        console.error("Wishlist error:", error);
-        toast.error("Something went wrong while adding to wishlist.");
-    }
-};
 
 export default function ProductCard({ data }) {
     if (!data) return;
     const { title: name, _id: id, main_image, price, discount_price, category: route_path, discount: isSale } = data;
     const Wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const wish = Wishlist.some(item => item.flower_id === id);
-    const navigate = useNavigate();
-    const [isLiked, setIsLiked] = useState(wish);
-    const [isInCart, setIsInCart] = useState(false);
-    const handleLike = () => {
-        if (isLiked) {
-            toast.error("Removed from Wishlist 💔", { description: `${name} has been removed from your wishlist.` });
-            const updatedWishlist = Wishlist.filter(item => item.flower_id !== id);
-            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-            setIsLiked(false);
-        } else {
-            LikeFlower(route_path, id, name, setIsLiked);
-        }
-    };
 
-    const handleAddToCart = () => {
-        toast.success("Added to Cart 🛒", { description: `${name} has been successfully added to your cart.` });
-    };
-
-    const handleCartClick = () => {
-        if (isInCart) {
-            toast.error("Removed from Cart 🗑️", { description: `${name} has been removed from your cart.` });
-        } else {
-            handleAddToCart();
-        }
-    };
 
     const calculateDiscountPercent = (originalPrice, discountedPrice) => {
         const discounted = Number(discountedPrice);
