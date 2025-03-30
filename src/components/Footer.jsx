@@ -5,7 +5,7 @@ import { Facebook, Instagram, Linkedin, Mail, MailIcon, MapPin, PhoneCall, Twitt
 
 export default function Footer() {
     return (
-        <footer className="mt-[100px]">
+        <footer className="mt-[50px]">
             <div className="max-w-[1240px] m-auto bg-[#f5f5f5]">
                 <div className="flex max-sm:flex-col">
                     <div className="m-[23px] pr-[23px] border-r border-[#46A358] max-sm:border-r-0 max-sm:border-b-2 pb-[23px]">
@@ -38,11 +38,11 @@ export default function Footer() {
                         <p className="font-light leading-6 text-sm">We usually post offers and challenges in newsletter. We’re your online houseplant destination. We offer a wide range of houseplants and accessories shipped directly from our (green)house to yours! </p>
                     </div>
                 </div>
-                <div className="bg-[#46A3581A] flex justify-between items-center p-5 pl-8">
+                <div className="flex justify-between bg-[#46A3581A] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5">
                     <div><img src="/images/logo.svg" alt="logog" /></div>
-                    <div className="max-w-[250px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MapPin size={25} className="text-[#46A358]" /> 70 West Buckingham Ave. Farmingdale, NY 11735</div>
-                    <div className="max-w-[200px] flex gap-2 items-center text-sm text-[#3D3D3D]"><MailIcon size={20} className="text-[#46A358]" /> contact@greenshop.com</div>
-                    <div className="max-w-[400px] w-full flex gap-2 items-center text-sm text-[#3D3D3D]"><PhoneCall size={20} className="text-[#46A358]" /> +88 01911 717 490</div>
+                    <div className="flex gap-2.5 items-center"><MapPin size={25} className="text-[#46A358] text-sm" /> 70 West Buckingham Ave. <br />  Farmingdale, NY 11735</div>
+                    <div className="flex gap-2.5 items-center"><MailIcon size={20} className="text-[#46A358]" /> contact@greenshop.com</div>
+                    <div className="flex gap-2.5 items-center"><PhoneCall size={20} className="text-[#46A358]" /> +88 01911 717 490</div>
                 </div>
                 <div className="flex justify-between p-[23px] max-sm:flex-col max-sm:gap-4">
                     <div className="flex flex-1 flex-col gap-2.5">
