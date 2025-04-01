@@ -4,7 +4,7 @@ const apikey = import.meta.env.VITE_PUBLIC_ACCESS_TOKEN
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import MainMapping from "../MainMapping";
+import MainMapping from "../Categories";
 import { useSearchParams } from "react-router-dom";
 
 const fetchCategories = async () => {

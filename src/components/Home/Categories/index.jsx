@@ -1,10 +1,10 @@
 import React from "react";
-import CategoriesMain from "./Main";
+import Main from "./Main";
 
-const Categories = () => {
+const MainBlock = () => {
   return (
-    <CategoriesMain />
+    <Main />
   );
 };
 
-export default Categories;
+export default MainBlock;
