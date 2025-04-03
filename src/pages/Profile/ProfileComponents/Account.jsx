@@ -1,87 +1,121 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Account() {
-    const storedUser = JSON.parse(localStorage.getItem("user")) || {};
-    const [user, setUser] = useState(storedUser.user || {});
+    const storedUser = JSON.parse(localStorage.getItem("user")) || { user: { billing_address: {} } };
+    const [user, setUser] = useState(storedUser.user);
+    const [photoSource, setPhotoSource] = useState('url'); // Default to URL source
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify({ user }));
     }, [user]);
 
-    const handleInputChange = (e, field) => {
-        setUser((prev) => ({ ...prev, [field]: e.target.value }));
+    const handleInputChange = (e, field, isBilling = false) => {
+        const value = e.target.value;
+        setUser((prev) =>
+            isBilling
+                ? { ...prev, billing_address: { ...prev.billing_address, [field]: value } }
+                : { ...prev, [field]: value }
+        );
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setUser((prev) => ({ ...prev, profile_photo: reader.result }));
+            };
+            reader.readAsDataURL(file); // Convert file to base64
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        localStorage.setItem("user", JSON.stringify({ user }));
+
+        const requiredFields = ["_id", "name", "surname", "email", "phone_number", "username", "profile_photo"];
+
+        for (let field of requiredFields) {
+            if (!user[field]) {
+                alert(`Поле ${field} обязательно!`);
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch("https://green-shop-backend.onrender.com/api/user/account-details?access_token=67dbc36eaf06d13e0cde0c21", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    _id: user._id,
+                    name: user.name,
+                    surname: user.surname,
+                    email: user.email,
+                    phone_number: user.phone_number,
+                    username: user.username,
+                    profile_photo: user.profile_photo
+                })
+            });
+            const data = await response.json();
+            console.log("Ответ API:", data);
+        } catch (error) {
+            console.error("Ошибка при отправке данных:", error);
+        }
     };
 
     return (
-        <div>
-            <form>
-                <div className='flex gap-3 justify-between items-center'>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'><span className='text-red-500'>*</span> First Name</div>
-                        <input
-                            className='w-full my-2 py-2 px-3 rounded-lg border bg-white'
-                            type="text"
-                            value={user?.name || ''}
-                            onChange={(e) => handleInputChange(e, 'name')}
-                        />
+        <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold">Personal Information</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="First Name *" value={user.name || ''} onChange={(e) => handleInputChange(e, 'name')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="Last Name *" value={user.surname || ''} onChange={(e) => handleInputChange(e, 'surname')} className="border rounded p-2 w-full" />
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                    <input type="email" placeholder="Email Address *" value={user.email || ''} onChange={(e) => handleInputChange(e, 'email')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="Phone Number *" value={user.phone_number || ''} onChange={(e) => handleInputChange(e, 'phone_number')} className="border rounded p-2 w-full" />
+                </div>
+                <div className="mt-4">
+                    <input type="text" placeholder="Username *" value={user.username || ''} onChange={(e) => handleInputChange(e, 'username')} className="border rounded p-2 w-full" />
+                </div>
+
+                {/* Profile Photo Source Toggle */}
+                <div className="mt-4">
+                    <label>
+                        <input type="radio" name="photoSource" value="url" checked={photoSource === 'url'} onChange={() => setPhotoSource('url')} />
+                        Use Image URL
                     </label>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'><span className='text-red-500'>*</span> Last Name</div>
-                        <input
-                            className='w-full my-2 py-2 px-3 rounded-lg border bg-white'
-                            type="text"
-                            value={user?.surname || ''}
-                            onChange={(e) => handleInputChange(e, 'surname')}
-                        />
+                    <label className="ml-4">
+                        <input type="radio" name="photoSource" value="file" checked={photoSource === 'file'} onChange={() => setPhotoSource('file')} />
+                        Upload from Device
                     </label>
                 </div>
 
-                <div className='flex gap-3 justify-between items-center'>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'><span className='text-red-500'>*</span> Email Address</div>
+                {/* Conditionally render the input field based on the photo source */}
+                {photoSource === 'url' ? (
+                    <div className="mt-4">
                         <input
-                            className='w-full my-2 py-2 px-3 rounded-lg border bg-white'
-                            type="email"
-                            value={user?.email || ''}
-                            onChange={(e) => handleInputChange(e, 'email')}
-                        />
-                    </label>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'><span className='text-red-500'>*</span> Phone</div>
-                        <div className='w-full my-2 flex items-center group active:border-green-500 hover:border-green-500 transi focus:border-green-500 outline-none rounded-lg border bg-white'>
-                            <div className='bg-[#FBFBFB] py-2 group-hover:border-r-green-500 transi rounded-l-lg px-3 border-r-2 font-semibold'>
-                                +998
-                            </div>
-                            <input
-                                className='w-full outline-none rounded-r-lg py-2 px-3 bg-white'
-                                placeholder='phone number'
-                                type="text"
-                                value={user?.phone_number || ''}
-                                onChange={(e) => handleInputChange(e, 'phone_number')}
-                            />
-                        </div>
-                    </label>
-                </div>
-
-                <div className='flex gap-3 justify-between items-center'>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'><span className='text-red-500'>*</span> Username</div>
-                        <input
-                            className='w-full my-2 py-2 px-3 rounded-lg border bg-white'
                             type="text"
-                            value={user?.username || ''}
-                            onChange={(e) => handleInputChange(e, 'username')}
+                            placeholder="Profile Photo URL *"
+                            value={user.profile_photo || ''}
+                            onChange={(e) => handleInputChange(e, 'profile_photo')}
+                            className="border rounded p-2 w-full"
                         />
-                    </label>
-                    <label className='w-full my-3'>
-                        <div className='font-semibold text-sm'>Photo</div>
-                        <input className='w-1/2 my-2 block py-2 px-3 rounded-lg border bg-white' type="file" />
-                    </label>
-                </div>
+                    </div>
+                ) : (
+                    <div className="mt-4">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="border rounded p-2 w-full"
+                        />
+                    </div>
+                )}
 
-                <button className='bg-[#46A358] hover:bg-[#46A358]/80 text-white py-2 px-3 cursor-pointer rounded font-semibold'>
-                    Save Changes
-                </button>
+                <button type="submit" className="mt-6 bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded w-full">Save Changes</button>
             </form>
         </div>
     );

@@ -14,31 +14,31 @@ export default function ProfileLayout() {
 
     return (
         <div className="max-w-[1240px] mt-20 m-auto px-4 flex items-start justify-between ">
-            <div className="w-[21%] rounded p-4 bg-[#FBFBFB]">
+            <div className="w-[21%] rounded p-4 bg-[#F5F5F5]">
                 <ul>
                     <li className="text-xl font-bold">My Account</li>
                     <li>
-                        <NavLink to="/profile/account" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358]" : "border-l border-transparent "} hover:text-[#46A358]`} >
+                        <NavLink to="/profile/account" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358] bg-white" : "border-l border-transparent "} hover:text-[#46A358]`} >
                             <User /> Account Details
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profile/myproducts" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358]" : "border-l border-transparent "} hover:text-[#46A358]`} >
+                        <NavLink to="/profile/myproducts" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358] bg-white" : "border-l border-transparent "} hover:text-[#46A358]`} >
                             <ShoppingBag /> My Products
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profile/address" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358]" : "border-l border-transparent "} hover:text-[#46A358]`} >
+                        <NavLink to="/profile/address" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358] bg-white" : "border-l border-transparent "} hover:text-[#46A358]`} >
                             <MapPin /> Address
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profile/wishlist" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358]" : "border-l border-transparent "} hover:text-[#46A358]`} >
+                        <NavLink to="/profile/wishlist" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358] bg-white" : "border-l border-transparent "} hover:text-[#46A358]`} >
                             <Heart /> Wishlist
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profile/track" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358]" : "border-l border-transparent "} hover:text-[#46A358]`} >
+                        <NavLink to="/profile/track" className={({ isActive }) => `flex items-center gap-2 font-semibold px-2 py-1 my-2 text-lg ${isActive ? "text-[#46A358] border-l-4 border-[#46A358] bg-white" : "border-l border-transparent "} hover:text-[#46A358]`} >
                             <Truck /> Track Order
                         </NavLink>
                     </li>
@@ -70,3 +70,6 @@ export default function ProfileLayout() {
         </div>
     );
 }
+
+// https://green-shop-backend.onrender.com/api/user/account-details?access_token=
+// https://green-shop-backend.onrender.com/api/user/account-details?access_token=

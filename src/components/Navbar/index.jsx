@@ -20,8 +20,8 @@ export default function Navbar() {
   }, [isLogged]);
 
   return (
-    <nav className="w-full z-50 bg-white">
-      <div className="flex justify-between items-center max-w-[1240px] mx-auto py-5">
+    <nav className="z-50 bg-white">
+      <div className="flex justify-between w-[1200px] items-center mx-auto py-5">
         <Link to="/">
           <img src="/images/logo.svg" alt="logo" width={150} height={35} />
         </Link>
