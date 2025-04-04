@@ -15,7 +15,7 @@ export default function Account() {
     };
 
     const [user, setUser] = useState({ ...defaultUser, ...storedUser.user });
-    const [photoSource, setPhotoSource] = useState('url'); // Default to URL source
+    const [photoSource, setPhotoSource] = useState('url'); 
     const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Account() {
             reader.onloadend = () => {
                 setUser((prev) => ({ ...prev, profile_photo: reader.result }));
             };
-            reader.readAsDataURL(file); // Convert file to base64
+            reader.readAsDataURL(file); 
         }
     };
 
@@ -73,11 +73,9 @@ export default function Account() {
             const data = await response.json();
             console.log("Ответ API:", data);
 
-            // Показать уведомление об успехе
-            setSuccessMessage('Изменения успешно сохранены!');
-            setTimeout(() => setSuccessMessage(''), 3000); // Убрать через 3 секунды
+            setSuccessMessage('Changes saved successfully!');
+            setTimeout(() => setSuccessMessage(''), 3000);
 
-            // Сохранить обновлённого пользователя в localStorage
             localStorage.setItem("user", JSON.stringify({ user }));
 
         } catch (error) {
@@ -108,7 +106,6 @@ export default function Account() {
                     <input type="text" placeholder="Username *" value={user.username} onChange={(e) => handleInputChange(e, 'username')} className="border rounded p-2 w-full" />
                 </div>
 
-                {/* Profile Photo Source Toggle */}
                 <div className="mt-4">
                     <label>
                         <input type="radio" name="photoSource" value="url" checked={photoSource === 'url'} onChange={() => setPhotoSource('url')} />
@@ -120,7 +117,6 @@ export default function Account() {
                     </label>
                 </div>
 
-                {/* Conditionally render the input field based on the photo source */}
                 {photoSource === 'url' ? (
                     <div className="mt-4">
                         <input
