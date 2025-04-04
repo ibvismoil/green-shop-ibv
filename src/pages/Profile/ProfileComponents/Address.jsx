@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function Address() {
     const storedUser = JSON.parse(localStorage.getItem("user")) || { user: { billing_address: {} } };
     const [user, setUser] = useState(storedUser.user);
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify({ user }));
@@ -49,8 +50,13 @@ export default function Address() {
                     phone_number: user.phone_number
                 })
             });
+
             const data = await response.json();
             console.log("Ответ API:", data);
+
+            setSuccessMessage('The address has been saved successfully!');
+            setTimeout(() => setSuccessMessage(''), 3000);
+
         } catch (error) {
             console.error("Ошибка при отправке данных:", error);
         }
@@ -60,6 +66,13 @@ export default function Address() {
         <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">Billing Address</h2>
             <p className="text-sm text-gray-600 mb-4">The following addresses will be used on the checkout page by default.</p>
+
+            {successMessage && (
+                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded transition-all duration-300">
+                    {successMessage}
+                </div>
+            )}
+
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                     <input type="text" placeholder="First Name *" value={user.name || ''} onChange={(e) => handleInputChange(e, 'name')} className="border rounded p-2 w-full" />

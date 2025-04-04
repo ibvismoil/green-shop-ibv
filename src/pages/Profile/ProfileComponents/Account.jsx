@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Account() {
-    const storedUser = JSON.parse(localStorage.getItem("user")) || { user: { billing_address: {} } };
-    const [user, setUser] = useState(storedUser.user);
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+    
+    const defaultUser = {
+        _id: '',
+        name: '',
+        surname: '',
+        email: '',
+        phone_number: '',
+        username: '',
+        profile_photo: '',
+        billing_address: {}
+    };
+
+    const [user, setUser] = useState({ ...defaultUser, ...storedUser.user });
     const [photoSource, setPhotoSource] = useState('url'); // Default to URL source
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify({ user }));
@@ -31,10 +44,8 @@ export default function Account() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        localStorage.setItem("user", JSON.stringify({ user }));
 
         const requiredFields = ["_id", "name", "surname", "email", "phone_number", "username", "profile_photo"];
-
         for (let field of requiredFields) {
             if (!user[field]) {
                 alert(`Поле ${field} обязательно!`);
@@ -58,8 +69,17 @@ export default function Account() {
                     profile_photo: user.profile_photo
                 })
             });
+
             const data = await response.json();
             console.log("Ответ API:", data);
+
+            // Показать уведомление об успехе
+            setSuccessMessage('Изменения успешно сохранены!');
+            setTimeout(() => setSuccessMessage(''), 3000); // Убрать через 3 секунды
+
+            // Сохранить обновлённого пользователя в localStorage
+            localStorage.setItem("user", JSON.stringify({ user }));
+
         } catch (error) {
             console.error("Ошибка при отправке данных:", error);
         }
@@ -68,17 +88,24 @@ export default function Account() {
     return (
         <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">Personal Information</h2>
+
+            {successMessage && (
+                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
+                    {successMessage}
+                </div>
+            )}
+
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="First Name *" value={user.name || ''} onChange={(e) => handleInputChange(e, 'name')} className="border rounded p-2 w-full" />
-                    <input type="text" placeholder="Last Name *" value={user.surname || ''} onChange={(e) => handleInputChange(e, 'surname')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="First Name *" value={user.name} onChange={(e) => handleInputChange(e, 'name')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="Last Name *" value={user.surname} onChange={(e) => handleInputChange(e, 'surname')} className="border rounded p-2 w-full" />
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-4">
-                    <input type="email" placeholder="Email Address *" value={user.email || ''} onChange={(e) => handleInputChange(e, 'email')} className="border rounded p-2 w-full" />
-                    <input type="text" placeholder="Phone Number *" value={user.phone_number || ''} onChange={(e) => handleInputChange(e, 'phone_number')} className="border rounded p-2 w-full" />
+                    <input type="email" placeholder="Email Address *" value={user.email} onChange={(e) => handleInputChange(e, 'email')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="Phone Number *" value={user.phone_number} onChange={(e) => handleInputChange(e, 'phone_number')} className="border rounded p-2 w-full" />
                 </div>
                 <div className="mt-4">
-                    <input type="text" placeholder="Username *" value={user.username || ''} onChange={(e) => handleInputChange(e, 'username')} className="border rounded p-2 w-full" />
+                    <input type="text" placeholder="Username *" value={user.username} onChange={(e) => handleInputChange(e, 'username')} className="border rounded p-2 w-full" />
                 </div>
 
                 {/* Profile Photo Source Toggle */}
@@ -99,7 +126,7 @@ export default function Account() {
                         <input
                             type="text"
                             placeholder="Profile Photo URL *"
-                            value={user.profile_photo || ''}
+                            value={user.profile_photo}
                             onChange={(e) => handleInputChange(e, 'profile_photo')}
                             className="border rounded p-2 w-full"
                         />
