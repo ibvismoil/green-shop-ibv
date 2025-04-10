@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Chrome, Eye, EyeOff, Facebook } from 'lucide-react';
+import { signInWithGoogle } from '../../../../firebase'; // импорт firebase-метода
 
 const api = import.meta.env.VITE_API;
 const apikey = import.meta.env.VITE_PUBLIC_ACCESS_TOKEN;
@@ -46,6 +46,24 @@ function Register({ setIsModalOpen, setIsLogged }) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const SignInWithGoogleRegister = async () => {
+    const result = await signInWithGoogle();
+    axios.post(`${api}user/sign-in?access_token=${apikey}`, { email: result.user.email })
+      .then(response => {
+        localStorage.setItem('user', JSON.stringify(response?.data?.data));
+        localStorage.setItem('wishlist', JSON.stringify(response?.data?.data?.user?.wishlist));
+        setIsLogged(true);
+        setIsModalOpen(false);
+        setErrors({});
+        toast.success(`You Successfully logged in as ${response?.data?.data?.user?.name}`);
+        navigate('/');
+      })
+      .catch(err => {
+        setErrors({ apiError: err?.response?.data?.extraMessage || 'Google Sign-In failed' });
+        toast.error('Google Sign-In failed');
+      });
   };
 
   return (
@@ -96,11 +114,15 @@ function Register({ setIsModalOpen, setIsLogged }) {
         Register
       </button>
       <div className='flex flex-col gap-3 mt-4'>
-        <button className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'>
-          <Chrome size={20} /> Login with Google
+        <button 
+          type='button'
+          onClick={SignInWithGoogleRegister}
+          className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'
+        >
+          <Chrome size={20} /> Register with Google
         </button>
         <button className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'>
-          <Facebook size={20} /> Login with Facebook
+          <Facebook size={20} /> Register with Facebook
         </button>
       </div>
     </form>

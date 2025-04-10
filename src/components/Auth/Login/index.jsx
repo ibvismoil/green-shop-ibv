@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Chrome, Eye, EyeOff, Facebook } from 'lucide-react';
+import { signInWithGoogle } from '../../../../firebase';
 
 const api = import.meta.env.VITE_API;
 const apikey = import.meta.env.VITE_PUBLIC_ACCESS_TOKEN;
@@ -23,37 +24,71 @@ function Login({ setIsModalOpen, setIsLogged }) {
   const handleLoginCheck = async (e) => {
     e.preventDefault();
     let newErrors = {};
-
+  
+    // Проверка обязательных полей
     if (!user.email.trim()) newErrors.email = 'Please enter your email';
     if (!user.password.trim()) newErrors.password = 'Please enter your password';
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+  
     setIsLoading(true);
     try {
       const response = await axios.post(`${api}user/sign-in?access_token=${apikey}`, user);
-      localStorage.setItem('user', JSON.stringify(response?.data?.data));
-      localStorage.setItem('wishlist', JSON.stringify(response?.data?.data?.user?.wishlist));
-      setUser({ email: '', password: '' });
-      setIsLogged(true);
-      setIsModalOpen(false);
-      setErrors({});
-      setIsLoading(false);
-      toast.success(`You Successfully logged in as ${response?.data?.data?.user?.name}`);
-      navigate('/');
+      if (response?.data?.data) {
+        localStorage.setItem('user', JSON.stringify(response?.data?.data));
+        localStorage.setItem('wishlist', JSON.stringify(response?.data?.data?.user?.wishlist));
+        setUser({ email: '', password: '' });
+        setIsLogged(true);
+        setIsModalOpen(false);
+        setErrors({});
+        setIsLoading(false);
+        toast.success(`You Successfully logged in as ${response?.data?.data?.user?.name}`);
+        navigate('/');
+      } else {
+        setErrors({ apiError: 'Login failed, please check your credentials' });
+        toast.error('Login failed, please check your credentials');
+      }
     } catch (err) {
-      setErrors({ apiError: err?.response?.data?.extraMessage || 'Login failed. ' });
-      toast.error(`Failed on login, please make sure you have entered the correct email and password`);
+      // Проверка ошибки с сервера
+      if (err?.response?.data?.extraMessage) {
+        setErrors({ apiError: err?.response?.data?.extraMessage });
+        toast.error(err?.response?.data?.extraMessage || 'Login failed. Please try again.');
+      } else {
+        setErrors({ apiError: 'Login failed. Please try again.' });
+        toast.error('Login failed. Please try again.');
+      }
+      setIsLoading(false);
     }
+  };
+  
+  const SignInWithGoogleFl = async () => {
+    const result = await signInWithGoogle();
+    axios.post(`${api}user/sign-in?access_token=${apikey}`, { email: result.user.email })
+      .then(response => {
+        localStorage.setItem('user', JSON.stringify(response?.data?.data));
+        localStorage.setItem('wishlist', JSON.stringify(response?.data?.data?.user?.wishlist));
+        setUser({ email: '', password: '' });
+        setIsLogged(true);
+        setIsModalOpen(false);
+        setErrors({});
+        setIsLoading(false);
+        toast.success(`You Successfully logged in as ${response?.data?.data?.user?.name}`);
+        navigate('/');
+      })
+      .catch(err => {
+        setErrors({ apiError: err?.response?.data?.extraMessage || 'Login failed. ' });
+        toast.error(`Failed on login, please make sure you have entered the correct email and password`);
+      });
   };
 
   return (
     <div>
       <form onSubmit={handleLoginCheck} className='px-10'>
         <p className='font-medium text-gray-600 mb-4'>Enter your email and password to login.</p>
-
+  
         <div className='relative mb-4'>
           <input 
             type='email' 
@@ -66,7 +101,7 @@ function Login({ setIsModalOpen, setIsLogged }) {
           />
           {errors.email && <span className='text-red-500 text-xs'>{errors.email}</span>}
         </div>
-
+  
         <div className='relative mb-4'>
           <input 
             type={showPassword ? 'text' : 'password'} 
@@ -86,18 +121,22 @@ function Login({ setIsModalOpen, setIsLogged }) {
           </button>
           {errors.password && <span className='text-red-500 text-xs'>{errors.password}</span>}
         </div>
-
+  
         {errors.apiError && <p className='text-red-500 text-sm mt-2'>{errors.apiError}</p>}
-
+  
         <button 
           type='submit' 
           className='w-full bg-[#46A358] text-lg font-semibold text-white rounded p-2 mt-3 hover:bg-[#3b8b4a] transition-all'
         >
           Login
         </button>
-
+  
         <div className='flex flex-col gap-3 mt-4'>
-          <button className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'>
+          <button 
+            type='button' 
+            onClick={SignInWithGoogleFl} 
+            className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'
+          >
              <Chrome size={20} /> Login with Google
           </button>
           <button className='flex items-center justify-center gap-2 w-full border border-gray-300 rounded p-2 text-gray-700 hover:bg-gray-100 transition-all'>
