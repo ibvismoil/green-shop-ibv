@@ -1,7 +1,7 @@
 import { LogIn } from 'lucide-react'
 import React, { useEffect } from 'react'
-import Register from './Register'
-import Login from './Login'
+import Register from './Register/index'
+import Login from './Login/index'
 import '../../index.css'
 
 function Auth({ isLoginOpen, isRegisterOpen, setIsModalOpen , setIsLogged}) {
