@@ -82,7 +82,7 @@ const Register: React.FC<RegisterProps> = ({ setIsModalOpen, setIsLogged }) => {
       const [name, surname] = displayName.split(' '); 
   
       const response = await axios.post(
-        `${api}user/sign-up?access_token=${apikey}`,
+        `${api}user/sign-up/google?access_token=${apikey}`,
         {
           email,
           name: name || 'GoogleUser',

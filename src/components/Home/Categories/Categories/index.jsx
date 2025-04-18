@@ -113,7 +113,7 @@ export default function ({ currentPage, setCurrentPage }) {
             </button>
           </div>
         </>
-      ) : (
+      ) : ( 
         <div className="text-3xl text-center mt-10">No products available</div>
       )}
     </div>

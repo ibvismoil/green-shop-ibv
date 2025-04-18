@@ -89,7 +89,7 @@ const Login: React.FC<LoginProps> = ({ setIsModalOpen, setIsLogged }) => {
           password: 'random_password',
         };
 
-        const response = await axios.post(`${api}user/sign-in?access_token=${apikey}`, userData);
+        const response = await axios.post(`${api}user/sign-in/google?access_token=${apikey}`, userData);
 
         if (response?.data?.data) {
           localStorage.setItem('user', JSON.stringify(response?.data?.data));
