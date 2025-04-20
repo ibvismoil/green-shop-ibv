@@ -42,66 +42,63 @@ const HeroCarousel = () => {
     const carouselRef = useRef<CarouselRef | null>(null);
 
     return (
-        <div className="max-w-[1240px] m-auto px-4 mt-4 relative">
-            <Carousel
-                ref={carouselRef}
-                autoplay
-                autoplaySpeed={3500}
-                dots={false}
-                beforeChange={(_, to: number) => setCurrentSlide(to)}
-            >
-                {slides.map((slide, index) => (
-                    <div
-                        key={index}
-                        className="flex items-center justify-center bg-[#F5F5F5] rounded-xl h-[400px] pl-10"
-                    >
-                        <div className="max-co w-full flex items-center justify-between h-full">
-                            <div className="flex-1 flex flex-col justify-center">
-                                <h3 className="uppercase text-lg font-medium text-[#3D3D3D]">
-                                    {slide.text}
-                                </h3>
-                                <h2 className="font-black text-[#3D3D3D] text-8xl max-2xl:text-6xl max-lg:text-5xl max-md:text-2xl">
-                                    {slide.title
-                                        .split(" ")
-                                        .slice(0, -1)
-                                        .join(" ")}{" "}
-                                    <span className="text-[#46A358] uppercase">
-                                        {slide.title.split(" ").slice(-1)}
-                                    </span>
-                                </h2>
-                                <p className="text-sm font-normal text-[#727272] w-3/5 max-lg:text-xs mt-[10px]">
-                                    {slide.description}
-                                </p>
-                            </div>
-
-                            <div className="flex justify-end items-end">
-                                <img
-                                    src={slide.img}
-                                    alt={slide.text || "Carousel img"}
-                                    className="max-w-[390px] max-h-[390px]"
-                                    width={390}
-                                    height={390}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </Carousel>
-
-            <div className="justify-center items-center flex gap-2 absolute bottom-4 left-1/2 -translate-x-1/2">
-                {slides.map((slide, index) => (
-                    <button
-                        key={slide.id}
-                        className={`relative cursor-pointer transition-all duration-300 bg-[#46A358] rounded-full !h-[6px] !w-[6px] ${
-                            currentSlide === index
-                                ? "!w-6"
-                                : "!h-6 hover:bg-[#46A358]/70 bg-[#46A358]/40"
-                        }`}
-                        onClick={() => carouselRef.current?.goTo(index)}
-                    />
-                ))}
-            </div>
+<div className="max-w-[1240px] m-auto px-4 mt-5 relative">
+  <Carousel
+    ref={carouselRef}
+    autoplay
+    autoplaySpeed={3500}
+    dots={false}
+    beforeChange={(_, to: number) => setCurrentSlide(to)}
+  >
+    {slides.map((slide, index) => (
+      <div
+        key={index}
+        className="flex flex-col-reverse lg:flex-row items-center justify-center bg-[#F5F5F5] rounded-xl px-6 py-8 lg:pl-10 h-auto lg:h-[400px]"
+      >
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-0 h-full">
+          <div className="flex-1 flex flex-col justify-center text-center lg:text-left">
+            <h3 className="uppercase text-sm md:text-lg font-medium text-[#3D3D3D]">
+              {slide.text}
+            </h3>
+            <h2 className="font-black text-[#3D3D3D] text-3xl md:text-5xl lg:text-8xl leading-tight mt-2">
+              {slide.title.split(" ").slice(0, -1).join(" ")}{" "}
+              <span className="text-[#46A358] uppercase">
+                {slide.title.split(" ").slice(-1)}
+              </span>
+            </h2>
+            <p className="text-xs md:text-sm font-normal text-[#727272] w-full lg:w-3/5 mt-3 mx-auto lg:mx-0">
+              {slide.description}
+            </p>
+          </div>
+          <div className="flex justify-center items-center flex-shrink-0">
+            <img
+              src={slide.img}
+              alt={slide.text || "Carousel img"}
+              className="max-w-[240px] md:max-w-[300px] lg:max-w-[390px] max-h-[300px] md:max-h-[350px] lg:max-h-[390px]"
+              width={390}
+              height={390}
+            />
+          </div>
         </div>
+      </div>
+    ))}
+  </Carousel>
+
+  <div className="justify-center items-center flex gap-2 absolute bottom-4 left-1/2 -translate-x-1/2">
+    {slides.map((slide, index) => (
+      <button
+        key={slide.id}
+        className={`relative cursor-pointer transition-all duration-300 bg-[#46A358] rounded-full !h-[6px] !w-[6px] ${
+          currentSlide === index
+            ? "!w-6"
+            : "!h-6 hover:bg-[#46A358]/70 bg-[#46A358]/40"
+        }`}
+        onClick={() => carouselRef.current?.goTo(index)}
+      />
+    ))}
+  </div>
+</div>
+
     );
 };
 

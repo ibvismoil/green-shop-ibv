@@ -4,19 +4,14 @@ import React from 'react'
 function MyProducts() {
   return (
     <div>
-      <button className='bg-[#46A358] text-white py-2 px-3 cursor-pointer rounded font-semibold text-base'>Add new</button>
-      <div className="flex justify-between items-center max-w-[1240px] mx-auto py-5">
-        <ul className="flex gap-10 items-center font-size-[24px] text-lg text-gray-700">
-          <li>Product</li>
-          <li>Price</li>
-          <li>Total</li>
-        </ul>
-        <div className="flex items-center gap-4">
-          
-          
+      <div className='w-full'>
+        <button className='bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white ml-auto px-[15px] py-[8px]'>Add new</button>
+        <div className='pb-[11px] border-b border-[#46A35880] flex max-lg:hidden'>
+          <h3 className='w-[40%]'>Products</h3>
+          <h3 className='w-[20%]'>Price</h3>
+          <h3 className='w-[40%]'>Total</h3>
         </div>
       </div>
-      <hr className="max-w-[1280px] mx-auto bg-[#46A35880] border-none h-[1px]" />
     </div>
   )
 }

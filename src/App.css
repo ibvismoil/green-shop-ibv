@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  /* font-family: Inter, sans-serif */
+  font-family: Inter, sans-serif
 }
 
 .logo {
@@ -40,3 +40,13 @@
   }
 }
 
+.wishlist-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.spinner {
+  text-align: center;
+  margin-top: 100px;
+}
