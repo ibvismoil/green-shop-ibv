@@ -17,6 +17,8 @@ import Address from "./pages/Profile/ProfileComponents/Address.jsx";
 import '@ant-design/v5-patch-for-react-19';
 import ProductsCars from "./components/Home/Product";
 import ProductChek from "./components/ProductChek/index.jsx";
+import BlogDetail from "./components/Blog/BlogWiew/index.tsx";
+import ProductDetail from "./components/ProductDetails/index.jsx";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route element={<Shop />} path="/shop" />
           <Route element={<ProductChek />} path="/product-checkout" />
           <Route element={<Blog />} path="/blog" />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/product/:category/:id" element={<ProductDetail />} />
           <Route element={<ProductsCars />} path="/product-card" />
           <Route element={<Profile />} path="/profile">
             <Route element={<Account />} path="account" />

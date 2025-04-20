@@ -1,12 +1,14 @@
 import { Heart, Search, ShoppingCart } from "lucide-react";
 import { notification } from "antd";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const accessToken = "68037186f2a99d02479565df";
 
+
 export default function ProductCard({ data }) {
     if (!data) return;
-
+    
     const {
         title: name,
         _id: id,
@@ -16,7 +18,8 @@ export default function ProductCard({ data }) {
         discount: isSale,
         category,
     } = data;
-
+    
+    const navigate = useNavigate();
     const getWishlist = () => JSON.parse(localStorage.getItem("wishlist")) || [];
     const initialWishlist = getWishlist();
     const isWished = initialWishlist.some(item => item.flower_id === id);
@@ -118,7 +121,7 @@ export default function ProductCard({ data }) {
                     main_image,
                     discount_price,
                     title: name,
-                };                
+                };
 
                 wishlist.push(newItem);
                 localStorage.setItem("wishlist", JSON.stringify(wishlist));
@@ -130,6 +133,10 @@ export default function ProductCard({ data }) {
             openNotification("Error", "Something went wrong.", "error");
         }
     };
+    const handleOpenDetail = () => {
+        navigate(`/product/${category}/${id}`);
+    };
+
 
     return (
         <div className="max-w-[300px] w-full border-t-2 border-t-transparent bg-gray-100 text-lg p-2 transi group rounded">
@@ -150,9 +157,10 @@ export default function ProductCard({ data }) {
                     <button onClick={handleToggleLike} className="p-2 hover:bg-gray-300 transi bg-white rounded cursor-pointer">
                         <Heart size={19} className={`transition-all ${liked ? "fill-[#46A358] text-[#46A358] scale-110" : "text-gray-500"}`} />
                     </button>
-                    <button className="p-2 hover:bg-gray-300 transi bg-white rounded cursor-pointer">
+                    <button onClick={handleOpenDetail} className="p-2 hover:bg-gray-300 transi bg-white rounded cursor-pointer">
                         <Search size={19} />
                     </button>
+
                 </div>
                 {isSale && (
                     <div className="absolute opacity-100 rounded-br transi top-0 left-0 bg-[#46A358] text-white px-2 py-[2px] font-bold">

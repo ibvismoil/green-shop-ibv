@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Eye, MessageCircle, Heart } from 'lucide-react';
 import imgconect from '/images/image.png'
+import { Link } from "react-router-dom";
+
 
 const api = import.meta.env.VITE_API;
 const apikey = import.meta.env.VITE_PUBLIC_ACCESS_TOKEN;
@@ -38,7 +40,7 @@ const BlogList: React.FC = () => {
 
     fetchBlogs();
   }, []);
-  
+
   if (loading)
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 py-10">
@@ -59,7 +61,7 @@ const BlogList: React.FC = () => {
           </div>
         ))}
       </div>
-    );  
+    );
   if (error) return <p className="text-center text-red-500 py-10">{error}</p>;
 
   return (
@@ -68,12 +70,12 @@ const BlogList: React.FC = () => {
         <div>
           {/* <div className='w-full h-[300px] p-[50px] bg-[#F5F5F5] mt-3 flex max-2xl:h-[200px] max-md:h-[150px] justify-between'> */}
           <div>
-          <img src={imgconect} alt="" />
+            <img src={imgconect} alt="" />
           </div>
           <h1 className='mt-[50px] font-black text-center text-[6vw]'>
-          Monetize your content with <span className='text-[#46A358]'>GreenShop</span>
+            Monetize your content with <span className='text-[#46A358]'>GreenShop</span>
           </h1>
-        <p className='text-center text-[25px] mt-[20px] max-xl:text-[2vw]'>Greenshop - a platform for buying and selling, publishing and monetizing all types of flowers: acrticles, notes, video, photos, podcasts or songs.</p>
+          <p className='text-center text-[25px] mt-[20px] max-xl:text-[2vw]'>Greenshop - a platform for buying and selling, publishing and monetizing all types of flowers: acrticles, notes, video, photos, podcasts or songs.</p>
         </div>
         <div className="relative w-1/3">
           <input
@@ -82,7 +84,7 @@ const BlogList: React.FC = () => {
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-green-400"
           />
           <svg
-            className="w-5 h-5 absolute left-3 top-2.5 text-gray-400" 
+            className="w-5 h-5 absolute left-3 top-2.5 text-gray-400"
             fill="none"
             stroke="currentColor"
             strokeWidth={2}
@@ -99,7 +101,10 @@ const BlogList: React.FC = () => {
             className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition duration-200 p-4 flex flex-col justify-between"
           >
             <div>
-              <h2 className="text-lg font-semibold mb-2">{blog.title}</h2>
+              <Link to={`/blog/${blog._id}`} className="text-lg font-semibold mb-2 text-green-600 hover:underline">
+                {blog.title}
+              </Link>
+
               <p className="text-gray-600 line-clamp-4">{blog.short_description}</p>
             </div>
             <div className="flex justify-between text-sm text-gray-500 border-t pt-3 mt-4">
